@@ -1,0 +1,13 @@
+*
+!requirements.lock
+!services/
+!services/api/
+!services/api/lh_agent/
+!services/api/lh_agent/*.py
+!apps/
+!apps/web/
+!apps/web/*.html
+!apps/web/*.js
+!apps/web/*.css
+!infra/
+!infra/Dockerfile
