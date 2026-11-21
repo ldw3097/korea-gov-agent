@@ -1,0 +1,21 @@
+services:
+  web:
+    environment:
+      AUTH_MODE: cloudflare
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:?set PUBLIC_ORIGIN}
+      CF_ACCESS_ISSUER: ${CF_ACCESS_ISSUER:?set CF_ACCESS_ISSUER}
+      CF_ACCESS_AUD: ${CF_ACCESS_AUD:?set CF_ACCESS_AUD}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?set ADMIN_EMAIL}
+  cloudflared:
+    image: ${CLOUDFLARED_IMAGE:?set verified CLOUDFLARED_IMAGE}
+    profiles: [tunnel]
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?set TUNNEL_TOKEN}
+    depends_on:
+      web:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options: {max-size: 5m, max-file: '3'}
