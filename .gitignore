@@ -1,4 +1,5 @@
 /target/
+/.venv-speckit/
 .env
 .env.*
 !.env.example
